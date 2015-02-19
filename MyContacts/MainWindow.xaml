@@ -1,0 +1,36 @@
+﻿<Controls:MetroWindow x:Class="MyContacts.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"                    
+        Title="MainWindow" Height="610" Width="650" ShowTitleBar="False">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="My Contacts" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15" Grid.Row="0" Grid.Column="0"/>
+        <TextBlock Text="item 2" Foreground="White"  FontFamily="Segoe UI" FontSize="15"  Grid.Row="0" Grid.Column="1" />
+        <TextBlock Text="   User Name" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15"  Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Stretch"/>
+        <TextBlock Text="   All Contacts" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15"  Grid.Row="2" Grid.Column="0"/>
+        <TextBlock Text="   Search Contacts" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15"  Grid.Row="3" Grid.Column="0" MouseLeftButtonDown="SearchContactsMenu"/>
+        <TextBlock Text="   Add Contacts" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15"  Grid.Row="4" Grid.Column="0" MouseDown="addContactsMenu"/>
+        <TextBlock Text="   Import Contacts" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15" Grid.Row="5" Grid.Column="0"/>
+        <TextBlock Text="   How To Use" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15"  Grid.Row="6" Grid.Column="0"/>
+        <TextBlock Text="   About" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15"  Grid.Row="7" Grid.Column="0"/>
+        <StackPanel x:Name="mainPanel" Grid.Column="1" Grid.Row="1" Grid.RowSpan="7" Background="Azure">
+           
+        </StackPanel>
+        <Image Source="E:\THE HUB\Pictures\Anime\4th hokage.gif" Grid.Column="0" Grid.Row="1" Stretch="Fill" Width="120" HorizontalAlignment="Right" />
+    </Grid>
+</Controls:MetroWindow>
