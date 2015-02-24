@@ -13,8 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using System.Security.Principal;
+using System.Data.SQLite;
 
-
+           
 namespace MyContacts
 {
     /// <summary>
@@ -22,9 +24,37 @@ namespace MyContacts
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        //set database variables
+      
+        TextBox fNameTxt = new TextBox();
+        TextBox lNameTxt = new TextBox();
+        TextBox addressTxt = new TextBox();
+        TextBox mobileTxt = new TextBox();
+        TextBox mobile2Txt = new TextBox();
+        TextBox officeTxt = new TextBox();
+        TextBox emailTxt = new TextBox();
+        TextBox fbTxt = new TextBox();
+        TextBox twitterTxt = new TextBox();
+        TextBox notesTxt = new TextBox();
+        TextBox searchNameTxt = new TextBox();
+
+        string dbConnectionString = @"Data Source=contacts.db;Version=3;";
+
+        SQLiteConnection sqliteConn;
+
         public MainWindow()
         {
             InitializeComponent();
+            string displayName = WindowsIdentity.GetCurrent().Name;
+            userNameBlock.Text = displayName;
+            sqliteConn = new SQLiteConnection(dbConnectionString);
+            sqliteConn.Open();
+           
+        }
+
+         ~MainWindow()
+        {
+           // sqliteConn.Close();
         }
 
         private void addContactsMenu(object sender, MouseButtonEventArgs e)
@@ -124,61 +154,61 @@ namespace MyContacts
             notes.Foreground = (Brush)(new BrushConverter().ConvertFrom("#880880"));
            
 
-            TextBox fNameTxt = new TextBox();
+            
             fNameTxt.Width = 300;
             fNameTxt.Foreground = (Brush)(new BrushConverter().ConvertFrom("#707070"));
             fNameTxt.Text = "write here";
             fNameTxt.Margin = new Thickness(33,0, 0, 0);
 
-            TextBox lNameTxt = new TextBox();
+            
             lNameTxt.Width = 300;
             lNameTxt.Foreground = (Brush)(new BrushConverter().ConvertFrom("#707070"));
             lNameTxt.Text = "write here";
             lNameTxt.Margin = new Thickness(34, 0, 0, 0);
 
-            TextBox addressTxt = new TextBox();
+            
             addressTxt.Width = 300;
             addressTxt.Foreground = (Brush)(new BrushConverter().ConvertFrom("#707070"));
             addressTxt.Text = "write here";
             addressTxt.Margin = new Thickness(51, 0, 0, 0);
 
-            TextBox mobileTxt = new TextBox();
+            
             mobileTxt.Width = 300;
             mobileTxt.Foreground = (Brush)(new BrushConverter().ConvertFrom("#707070"));
             mobileTxt.Text = "write here";
             mobileTxt.Margin = new Thickness(58, 0, 0, 0);
 
-            TextBox mobile2Txt = new TextBox();
+            
             mobile2Txt.Width = 300;
             mobile2Txt.Foreground = (Brush)(new BrushConverter().ConvertFrom("#707070"));
             mobile2Txt.Text = "write here";
             mobile2Txt.Margin = new Thickness(12, 0, 0, 0);
 
-            TextBox officeTxt = new TextBox();
+            
             officeTxt.Width = 300;
             officeTxt.Foreground = (Brush)(new BrushConverter().ConvertFrom("#707070"));
             officeTxt.Text = "write here";
             officeTxt.Margin = new Thickness(66, 0, 0, 0);
 
-            TextBox emailTxt = new TextBox();
+            
             emailTxt.Width = 300;
             emailTxt.Foreground = (Brush)(new BrushConverter().ConvertFrom("#707070"));
             emailTxt.Text = "write here";
             emailTxt.Margin = new Thickness(66, 0, 0, 0);
 
-            TextBox fbTxt = new TextBox();
+            
             fbTxt.Width = 300;
             fbTxt.Foreground = (Brush)(new BrushConverter().ConvertFrom("#707070"));
             fbTxt.Text = "write here";
             fbTxt.Margin = new Thickness(40, 0, 0, 0);
 
-            TextBox twitterTxt = new TextBox();
+            
             twitterTxt.Width = 300;
             twitterTxt.Foreground = (Brush)(new BrushConverter().ConvertFrom("#707070"));
             twitterTxt.Text = "write here";
             twitterTxt.Margin = new Thickness(56, 0, 0, 0);
 
-            TextBox notesTxt = new TextBox();
+            
             notesTxt.Width = 300;
             notesTxt.Foreground = (Brush)(new BrushConverter().ConvertFrom("#707070"));
             notesTxt.Text = "write here";
@@ -191,7 +221,7 @@ namespace MyContacts
             saveBtn.Height = 30;
             saveBtn.Margin = new Thickness(250, 20, 0, 0);
             saveBtn.Foreground = (Brush)(new BrushConverter().ConvertFrom("#880880"));
-            saveBtn.MouseLeftButtonUp += new MouseButtonEventHandler(saveBtn_MouseDown);
+            saveBtn.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(saveBtn_MouseDown);
             
 
             fNamePanel.Children.Add(fName);
@@ -243,7 +273,21 @@ namespace MyContacts
 
         private void saveBtn_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Pressed");
+            string query="insert into contactDetails(fName,lName,address,mobile1,mobile2,office,email,fb,twitter,notes)"+
+                "values('" + fNameTxt.Text + "','" + lNameTxt.Text + "','" + addressTxt.Text + "','" + mobileTxt.Text + "','" + mobile2Txt.Text + "','" + officeTxt.Text + "','" + emailTxt.Text + "','" + fbTxt.Text + "','" + twitterTxt.Text + "','" + notesTxt.Text + "');";
+            try
+            {
+                SQLiteCommand sqliteComm = new SQLiteCommand(query, sqliteConn);
+                sqliteComm.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+           
+
+            //SQLiteDataReader dataReader = sqliteComm.ExecuteReader();
+             MessageBox.Show("Contact Added");
         }
 
         private void SearchContactsMenu(object sender, MouseButtonEventArgs e)
@@ -257,10 +301,12 @@ namespace MyContacts
             searchName.FontSize = 15;
             searchName.Foreground = (Brush)(new BrushConverter().ConvertFrom("#880880"));
             searchName.Margin = new Thickness(40, 0, 0, 0);
+            
 
-            TextBox searchNameTxt = new TextBox();
+            
             searchNameTxt.Width = 250;
             searchNameTxt.Margin = new Thickness(25, 0, 0, 0);
+            searchNameTxt.TextChanged += new  TextChangedEventHandler(searchName_TextInput);
 
             searchPanel.Children.Add(searchName);
             searchPanel.Children.Add(searchNameTxt);
@@ -269,6 +315,30 @@ namespace MyContacts
             mainPanel.Children.Add(searchPanel);
             
 
+        }
+
+        void searchName_TextInput(object sender, TextChangedEventArgs e)
+        {
+            string query = "select lName,email from contactDetails where fName='" + searchNameTxt.Text + "'";
+            SQLiteCommand sqliteCommand = new SQLiteCommand(query,sqliteConn);
+            sqliteCommand.ExecuteNonQuery();
+            SQLiteDataReader dr = sqliteCommand.ExecuteReader();     
+
+            while(dr.Read())
+            {
+                string data = dr.GetString(1);
+                MessageBox.Show(data);
+            }
+        }
+
+       
+
+        private void AllContactsMe(object sender, MouseButtonEventArgs e)
+        {
+            TextBlock headerLabel = new TextBlock();
+            headerLabel.Text = "All Contacts";
+           
+           
         }
        
 

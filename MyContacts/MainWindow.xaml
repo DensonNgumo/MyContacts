@@ -21,8 +21,8 @@
         </Grid.RowDefinitions>
         <TextBlock Text="My Contacts" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15" Grid.Row="0" Grid.Column="0"/>
         <TextBlock Text="item 2" Foreground="White"  FontFamily="Segoe UI" FontSize="15"  Grid.Row="0" Grid.Column="1" />
-        <TextBlock Text="   User Name" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15"  Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Stretch"/>
-        <TextBlock Text="   All Contacts" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15"  Grid.Row="2" Grid.Column="0"/>
+        <TextBlock x:Name="userNameBlock" Text="   User Name" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15"  Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Stretch"/>
+        <TextBlock Text="   All Contacts" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15"  Grid.Row="2" Grid.Column="0" MouseLeftButtonDown="AllContactsMe"/>
         <TextBlock Text="   Search Contacts" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15"  Grid.Row="3" Grid.Column="0" MouseLeftButtonDown="SearchContactsMenu"/>
         <TextBlock Text="   Add Contacts" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15"  Grid.Row="4" Grid.Column="0" MouseDown="addContactsMenu"/>
         <TextBlock Text="   Import Contacts" TextWrapping="Wrap" Foreground="White" Background="Black" FontFamily="Segoe UI" FontSize="15" Grid.Row="5" Grid.Column="0"/>
