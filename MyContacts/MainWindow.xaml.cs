@@ -327,7 +327,18 @@ namespace MyContacts
             while(dr.Read())
             {
                 string data = dr.GetString(1);
-                MessageBox.Show(data);
+               // MessageBox.Show(data);
+                StackPanel results= new StackPanel();
+                TextBlock name= new TextBlock();
+                TextBlock email = new TextBlock();
+                name.Text=searchNameTxt.Text+" "+dr.GetString(0);
+                email.Text = dr.GetString(1);
+                results.Children.Add(name);
+                results.Children.Add(email);
+                results.Margin = new Thickness(30, 30, 0, 0);
+             //   mainPanel.Children.Clear();
+                mainPanel.Children.Add(results);
+                
             }
         }
 
